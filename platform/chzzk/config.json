@@ -1,0 +1,16 @@
+{
+    "screen_id": "chzzk",
+    "NID_SES": "0000",
+    "NID_AUT": "0000",
+    "thread": 2,
+    "time_sleep": 30,
+    "channel_count": 0,
+    "output_path": "/media/pi/monitoring",
+    "channel": {
+        "id": "7b9c6553913c755812ef2cd9fbe1dc5c",
+        "name": "hane",
+        "output_dir": "/media/pi/monitoring",
+        "identifier": "ch1",
+        "active": "on"
+    }
+}

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+DURATION=120
+temps=()
+
+echo "=== wait for CPU to cool down (under 45°C) ==="
+while true; do
+    temp=$(vcgencmd measure_temp | sed "s/temp=\(.*\)'C/\1/")
+
+    printf "CPU temp: %.2f°C\r" "$temp"
+    if (( $(echo "$temp <= 45.0" | bc -l) )); then
+        echo ""  
+        break
+    fi
+    sleep 1
+done
+
+echo "=== CPU stress test (${DURATION}s) ==="
+stress-ng --cpu 0 --timeout ${DURATION}s --metrics-brief &
+
+start=$(date +%s)
+while [ $(($(date +%s) - start)) -lt $DURATION ]; do
+    temp=$(vcgencmd measure_temp | sed "s/temp=\(.*\)'C/\1/")
+    temps+=($temp)
+    # 한 줄 갱신
+    printf "CPU temp: %.2f°C\r" "$temp"
+    sleep 1
+done
+echo ""  
+
+max_temp=0
+sum_temp=0
+count=${#temps[@]}
+
+for t in "${temps[@]}"; do
+    sum_temp=$(echo "$sum_temp + $t" | bc)
+    if (( $(echo "$t > $max_temp" | bc -l) )); then
+        max_temp=$t
+    fi
+done
+
+avg_temp=$(echo "scale=2; $sum_temp / $count" | bc)
+
+echo "MAX: ${max_temp}°C"
+echo "AVG: ${avg_temp}°C"

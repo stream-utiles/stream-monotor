@@ -1,0 +1,6 @@
+#!/bin/bash
+
+uv run chzzk_record.py
+
+exit 0
+

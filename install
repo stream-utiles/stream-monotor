@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# -------------------------------------------------------------------------------
+# stream-monitor
+# -------------------------------------------------------------------------------
+sudo apt update
+sudo apt-get update
+sudo apt install jq -y
+
+# python
+pip install python-dotenv -y
+
+################ utiles
+sudo apt install vcgencmd -y
+sudo apt install stress-ng -y
+
+# -------------------------------------------------------------------------------
+# chzzk-rekoda
+# -------------------------------------------------------------------------------
+echo "Check if uv is installed"
+if ! command -v uv > /dev/null 2>&1; then
+    echo "uv is not installed. Installing uv now..."
+    # Install uv
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    # After installing uv, reload environment variables to use uv immediately
+    source "$HOME/.local/bin/env"
+    echo "uv installed successfully. Now continuing..."
+fi
