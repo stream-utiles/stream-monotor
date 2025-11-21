@@ -1,28 +1,47 @@
 #!/bin/bash
 
+DIR=$(dirname "$(readlink -f "$0")")
+
 # -------------------------------------------------------------------------------
 # stream-monitor
 # -------------------------------------------------------------------------------
-sudo apt update
-sudo apt-get update
-sudo apt install jq -y
+sudo apt update # update
+sudo apt install jq -y # global
+sudo apt install -y libraspberrypi-bin # utiles
+sudo apt install stress-ng -y
 
 # python
-pip install python-dotenv -y
+pip install python-dotenv
 
-################ utiles
-sudo apt install vcgencmd -y
-sudo apt install stress-ng -y
+# permission
+chmod +x "$DIR"/monitor
+chmod +x "$DIR"/utiles/log
+chmod +x "$DIR"/tools/tools
 
 # -------------------------------------------------------------------------------
 # chzzk-rekoda
 # -------------------------------------------------------------------------------
 echo "Check if uv is installed"
 if ! command -v uv > /dev/null 2>&1; then
-    echo "uv is not installed. Installing uv now..."
-    # Install uv
     curl -LsSf https://astral.sh/uv/install.sh | sh
-    # After installing uv, reload environment variables to use uv immediately
     source "$HOME/.local/bin/env"
-    echo "uv installed successfully. Now continuing..."
 fi
+
+# permission
+chmod +x "$DIR"/platform/chzzk/chzzk
+chmod +x "$DIR"/platform/chzzk/kill
+
+# -------------------------------------------------------------------------------
+# twitcasting
+# -------------------------------------------------------------------------------
+# permission
+chmod +x "$DIR"/platform/twitcasting/twitcasting
+chmod +x "$DIR"/platform/twitcasting/kill
+
+
+# -------------------------------------------------------------------------------
+# X
+# -------------------------------------------------------------------------------
+# permission
+chmod +x "$DIR"/platform/X/X
+chmod +x "$DIR"/platform/X/kill

@@ -1,3 +1,22 @@
 {
-    "output_path": "/media/pi/monitoring"
+    "output_path": "/media/pi/monitoring",
+    "channel": {
+        "name": "hane",
+        "output_dir": "",
+        "chzzk": {
+            "enable": true,
+            "output_dir": "",
+            "id": "7b9c6553913c755812ef2cd9fbe1dc5c"
+        },
+        "twitcasting": {
+            "enable": false,
+            "output_dir": "",
+            "id": "otw_hane"
+        },
+        "X": {
+            "enable": false,
+            "output_dir": "",
+            "id": "otw_hane"
+        }
+    }
 }
